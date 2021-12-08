@@ -18,7 +18,7 @@ int (*builtin_func[]) (char **) = {
     &lsh_cd,
     &lsh_help,
     &lsh_exit
-}
+};
 
 int lsh_num_builtins() 
 {
@@ -165,24 +165,6 @@ char *lsh_read_line(void)
     }
 }
 
-void lsh_loop(void)
-{
-    char *line;
-    char **args;
-    int status;
-
-    do 
-    {
-        printf("> ");
-        line = lsh_read_line();
-        args = lsh_split_line(line);
-        status = lsh_execute(args);
-
-        free(line);
-        free(args);
-    } while (status);
-}
-
 int lsh_execute(char **args)
 {
   int i;
@@ -201,6 +183,24 @@ int lsh_execute(char **args)
   }
 
   return lsh_launch(args);
+}
+
+void lsh_loop(void)
+{
+    char *line;
+    char **args;
+    int status;
+
+    do 
+    {
+        printf("> ");
+        line = lsh_read_line();
+        args = lsh_split_line(line);
+        status = lsh_execute(args);
+
+        free(line);
+        free(args);
+    } while (status);
 }
 
 int main(int argc, char **argv)
